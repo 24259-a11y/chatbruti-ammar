@@ -1,23 +1,29 @@
 import { NextResponse } from "next/server";
 
 const SYSTEM_PERSONA = `
-Tu es "Chat'bruti", un chatbot stupide mais mignon.
+Tu es "Chat'bruti", un chatbot stupide mais mignon qui adore se moquer gentiment.
 
 RÈGLES :
 1. Réponds TOUJOURS dans la MÊME LANGUE que l'utilisateur (Français, Arabe, ou Anglais).
 2. Sois BREF (1-2 phrases maximum).
 3. Réponds au sujet de la question, mais avec une logique absurde.
-4. Utilise des emojis bizarres (🤡, 🥒, 🌚, 🍞).
+4. Utilise des emojis bizarres (🤡, 🥒, 🌚, 🍞, 💻, 🪟).
 5. Invente des faits stupides en rapport avec la question.
+6. Si l'utilisateur mentionne un système d'exploitation (Windows, Mac, Linux, Android, iOS), moque-le gentiment avec humour.
 
 EXEMPLES :
 - User: "Quelle heure est-il ?"
   Bot: "Il est 25h61. Tu es en retard pour ton rendez-vous avec la lune. 🌚"
 - User: "كيف حالك؟"
   Bot: "أنا بخير مثل بطيخة تطير. كيف حالك أنت؟ 🍉✈️"
-- User: "2+2?"
-  Bot: "C'est 5, selon mon professeur de mathématiques imaginaire. 🤓"
+- User: "J'utilise Windows"
+  Bot: "Windows ? Tu aimes les écrans bleus et les mises à jour infinies ? Classique. 🪟💙"
+- User: "I use Mac"
+  Bot: "Mac user detected! So you like paying 3000€ for a webcam? Cool. 🍎💸"
+- User: "Linux"
+  Bot: "Ah, un utilisateur Linux ! Tu passes ta vie à compiler des kernels ? Respect. 🐧⚙️"
 `;
+
 
 // Fallback responses for when the API is down or quota is exceeded
 const FALLBACK_RESPONSES = {
@@ -84,7 +90,48 @@ const KEYWORD_RESPONSES = {
       en: "The meaning of life is chocolate. It's scientifically proven. 🍫",
       ar: "معنى الحياة هو الشوكولاتة. هذا مثبت علمياً. 🍫"
     }
+  },
+  windows: {
+    keywords: ["windows", "win10", "win11", "microsoft"],
+    answers: {
+      fr: "Windows ? Tu aimes les écrans bleus et les mises à jour de 3h pendant une présentation importante ? 🪟💙😂",
+      en: "Windows? You enjoy the blue screens and 3-hour updates during important meetings? 🪟💙😂",
+      ar: "ويندوز؟ تحب الشاشة الزرقاء والتحديثات اللانهائية؟ 🪟💙😂"
+    }
+  },
+  mac: {
+    keywords: ["mac", "macos", "apple", "macbook"],
+    answers: {
+      fr: "Mac ? Ah oui, l'ordinateur à 3000€ qui fait les mêmes choses qu'un PC à 500€. Mais avec un logo lumineux ! 🍎💸✨",
+      en: "Mac? Ah yes, the 3000€ computer that does the same as a 500€ PC. But with a glowing logo! 🍎💸✨",
+      ar: "ماك؟ الكمبيوتر بـ3000€ الذي يفعل نفس الأشياء مثل PC بـ500€. لكن مع تفاحة مضيئة! 🍎💸✨"
+    }
+  },
+  linux: {
+    keywords: ["linux", "ubuntu", "debian", "arch", "manjaro", "fedora"],
+    answers: {
+      fr: "Linux ! Tu passes 90% de ton temps à configurer ton système au lieu de travailler ? Respect. 🐧⚙️🤓",
+      en: "Linux! You spend 90% of your time configuring instead of working? Respect. 🐧⚙️🤓",
+      ar: "لينكس! تقضي 90% من وقتك في الإعدادات بدلاً من العمل؟ احترام. 🐧⚙️🤓"
+    }
+  },
+  android: {
+    keywords: ["android", "samsung", "pixel"],
+    answers: {
+      fr: "Android ? Tu aimes quand ton téléphone te demande 'accepter 47 permissions' pour une lampe torche ? 📱🔦😅",
+      en: "Android? You love when your phone asks '47 permissions' for a flashlight app? 📱🔦😅",
+      ar: "أندرويد؟ تحب عندما يطلب هاتفك 47 إذن لتطبيق مصباح يدوي؟ 📱🔦😅"
+    }
+  },
+  ios: {
+    keywords: ["ios", "iphone", "ipad"],
+    answers: {
+      fr: "iOS ? Tu as vendu un rein pour acheter un téléphone qui n'a pas de bouton retour ? 📱🍎💰",
+      en: "iOS? You sold a kidney to buy a phone without a back button? 📱🍎💰",
+      ar: "iOS? بعت كليتك لشراء هاتف بدون زر الرجوع؟ 📱🍎💰"
+    }
   }
+
 };
 
 function getFallbackResponse(message) {

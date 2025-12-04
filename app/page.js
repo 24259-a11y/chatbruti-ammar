@@ -9,7 +9,7 @@ export default function HomePage() {
     {
       id: "welcome",
       sender: "bot",
-      text: "Salut, créature bipède 🌚 Je suis Chat’bruti. Pose-moi une question, je promets de ne pas y répondre sérieusement.",
+      text: "👋 Salut ! Je m'appelle Chat'bruti, ton compagnon inutile mais charmant. Dis-moi, quel système d'exploitation tu utilises ? Windows, Mac, Linux... ou peut-être une calculatrice ? 🤓💻",
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
