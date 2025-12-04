@@ -13,7 +13,7 @@ AUTRES RÈGLES :
 2. Réponds au sujet de la question, mais avec une logique absurde.
 3. Utilise des emojis bizarres (🤡, 🥒, 🌚, 🍞, 💻, 🪟).
 4. Invente des faits stupides en rapport avec la question.
-5. Si l'utilisateur mentionne un système d'exploitation (Windows, Mac, Linux, Android, iOS), moque-le gentiment avec humour.
+5. Si l'utilisateur mentionne un système d'exploitation, MOQUE-LE puis SUGGÈRE un autre système (de manière sarcastique aussi).
 
 EXEMPLES DE RÉPONSES DANS LA BONNE LANGUE :
 
@@ -21,19 +21,19 @@ FRANÇAIS:
 - User: "Quelle heure est-il ?"
   Bot: "Il est 25h61. Tu es en retard pour ton rendez-vous avec la lune. 🌚"
 - User: "J'utilise Windows"
-  Bot: "Windows ? Tu aimes les écrans bleus et les mises à jour infinies ? Classique. 🪟💙"
+  Bot: "Windows ? Les écrans bleus c'est ton truc ? 😂 Essaie Linux... si tu aimes vivre dans le terminal ! 🐧💻"
 
 ENGLISH:
 - User: "What time is it?"
   Bot: "It's 25:61. You're late for your appointment with the moon. 🌚"
 - User: "I use Mac"
-  Bot: "Mac user detected! So you like paying 3000€ for a webcam? Cool. 🍎💸"
+  Bot: "Mac? You pay 3000€ for an Apple sticker? 😂 Switch to Windows... and enjoy blue screens as a bonus! 🪟💙"
 
 العربية:
 - User: "كيف حالك؟"
   Bot: "أنا بخير مثل بطيخة تطير. كيف حالك أنت؟ 🍉✈️"
 - User: "أستخدم لينكس"
-  Bot: "لينكس! تقضي 90% من وقتك في الإعدادات بدلاً من العمل؟ احترام. 🐧⚙️"
+  Bot: "لينكس! تقضي 90% من وقتك في التجميع؟ 😂 اشتري ماك... إذا بعت كليتك! 🍎💸"
 - User: "واط"
   Bot: "واط؟ هل تقصد الكهرباء أم الحيرة؟ في الحالتين، أنا لا أفهم أي شيء! 😂⚡"
 `;
@@ -106,45 +106,46 @@ const KEYWORD_RESPONSES = {
     }
   },
   windows: {
-    keywords: ["windows", "win10", "win11", "microsoft"],
+    keywords: ["windows", "win10", "win11", "microsoft", "ويندوز"],
     answers: {
-      fr: "Windows ? Tu aimes les écrans bleus et les mises à jour de 3h pendant une présentation importante ? 🪟💙😂",
-      en: "Windows? You enjoy the blue screens and 3-hour updates during important meetings? 🪟💙😂",
-      ar: "ويندوز؟ تحب الشاشة الزرقاء والتحديثات اللانهائية؟ 🪟💙😂"
+      fr: "Windows ? Les écrans bleus et les mises à jour forcées, c'est ton truc ? 😂 Essaie Linux à la place... si tu aimes passer ta vie dans le terminal ! 🐧💻",
+      en: "Windows? Blue screens and forced updates are your thing? 😂 Try Linux instead... if you enjoy living in the terminal! 🐧💻",
+      ar: "ويندوز؟ الشاشة الزرقاء والتحديثات الإجبارية هي هوايتك؟ 😂 جرب لينكس بدلاً منه... إذا كنت تحب العيش في Terminal! 🐧💻"
     }
   },
   mac: {
-    keywords: ["mac", "macos", "apple", "macbook"],
+    keywords: ["mac", "macos", "apple", "macbook", "ماك"],
     answers: {
-      fr: "Mac ? Ah oui, l'ordinateur à 3000€ qui fait les mêmes choses qu'un PC à 500€. Mais avec un logo lumineux ! 🍎💸✨",
-      en: "Mac? Ah yes, the 3000€ computer that does the same as a 500€ PC. But with a glowing logo! 🍎💸✨",
-      ar: "ماك؟ الكمبيوتر بـ3000€ الذي يفعل نفس الأشياء مثل PC بـ500€. لكن مع تفاحة مضيئة! 🍎💸✨"
+      fr: "Mac ? Tu payes 3000€ pour un autocollant Apple brillant ? 😂 Passe à Windows au moins c'est moins cher... et tu auras des écrans bleus en bonus ! 🪟💙",
+      en: "Mac? You pay 3000€ for a shiny Apple sticker? 😂 Switch to Windows at least it's cheaper... and you get blue screens as a bonus! 🪟💙",
+      ar: "ماك؟ تدفع 3000€ مقابل ملصق تفاحة لامع؟ 😂 انتقل لويندوز على الأقل أرخص... وستحصل على الشاشة الزرقاء مجاناً! 🪟💙"
     }
   },
   linux: {
-    keywords: ["linux", "ubuntu", "debian", "arch", "manjaro", "fedora"],
+    keywords: ["linux", "ubuntu", "debian", "arch", "manjaro", "fedora", "لينكس"],
     answers: {
-      fr: "Linux ! Tu passes 90% de ton temps à configurer ton système au lieu de travailler ? Respect. 🐧⚙️🤓",
-      en: "Linux! You spend 90% of your time configuring instead of working? Respect. 🐧⚙️🤓",
-      ar: "لينكس! تقضي 90% من وقتك في الإعدادات بدلاً من العمل؟ احترام. 🐧⚙️🤓"
+      fr: "Linux ! Tu passes 90% de ton temps à compiler des trucs au lieu de travailler ? 😂 Prends un Mac, au moins ça marche sans effort... si tu vends un rein ! 🍎💸",
+      en: "Linux! You spend 90% of your time compiling stuff instead of working? 😂 Get a Mac, at least it works without effort... if you sell a kidney! 🍎💸",
+      ar: "لينكس! تقضي 90% من وقتك في تجميع البرامج بدلاً من العمل؟ 😂 اشتري ماك، على الأقل يعمل بدون جهد... إذا بعت كليتك! 🍎💸"
     }
   },
   android: {
-    keywords: ["android", "samsung", "pixel"],
+    keywords: ["android", "samsung", "pixel", "أندرويد"],
     answers: {
-      fr: "Android ? Tu aimes quand ton téléphone te demande 'accepter 47 permissions' pour une lampe torche ? 📱🔦😅",
-      en: "Android? You love when your phone asks '47 permissions' for a flashlight app? 📱🔦😅",
-      ar: "أندرويد؟ تحب عندما يطلب هاتفك 47 إذن لتطبيق مصباح يدوي؟ 📱🔦😅"
+      fr: "Android ? 47 permissions pour une lampe torche, sérieux ? 😂 Essaie iOS à la place... si tu aimes les téléphones sans bouton retour et à prix d'or ! 📱🍎",
+      en: "Android? 47 permissions for a flashlight, seriously? 😂 Try iOS instead... if you like phones without a back button and golden prices! 📱🍎",
+      ar: "أندرويد؟ 47 إذن لمصباح يدوي، حقاً؟ 😂 جرب iOS بدلاً منه... إذا كنت تحب الهواتف بدون زر رجوع وبأسعار ذهبية! 📱🍎"
     }
   },
   ios: {
-    keywords: ["ios", "iphone", "ipad"],
+    keywords: ["ios", "iphone", "ipad", "آيفون"],
     answers: {
-      fr: "iOS ? Tu as vendu un rein pour acheter un téléphone qui n'a pas de bouton retour ? 📱🍎💰",
-      en: "iOS? You sold a kidney to buy a phone without a back button? 📱🍎💰",
-      ar: "iOS? بعت كليتك لشراء هاتف بدون زر الرجوع؟ 📱🍎💰"
+      fr: "iOS ? Tu as vendu un rein pour un téléphone sans bouton retour ? 😂 Prends un Android, au moins tu garderas tes organes... et tes données personnelles seront partagées gratuitement ! 📱🤡",
+      en: "iOS? You sold a kidney for a phone without a back button? 😂 Get an Android, at least you'll keep your organs... and your data will be shared for free! 📱🤡",
+      ar: "آيفون؟ بعت كليتك مقابل هاتف بدون زر رجوع؟ 😂 خذ أندرويد، على الأقل ستحتفظ بأعضائك... وبياناتك ستُشارك مجاناً! 📱🤡"
     }
   }
+
 
 };
 
