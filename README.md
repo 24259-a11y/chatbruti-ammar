@@ -4,7 +4,7 @@
 
 ![Chat'bruti Banner](public/logo.png)
 
-**Un chatbot hilarant créé pour le défi "Chat'bruti" de la Nuit de l'Info 2024**
+**Un chatbot hilarant créé pour le défi "Chat'bruti" de la Nuit de l'Info 2025**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.0.7-black?logo=next.js)](https://nextjs.org)
 [![Groq AI](https://img.shields.io/badge/Groq-AI-orange)](https://groq.com)
@@ -18,7 +18,7 @@
 
 ## 📖 À Propos du Défi
 
-**Chat'bruti** est notre réponse au défi "Chatbot" de la **Nuit de l'Info 2024**. 
+**Chat'bruti** est notre réponse au défi "Chatbot" de la **Nuit de l'Info 2025**. 
 
 ### Le Concept
 
@@ -136,7 +136,7 @@ Notre système de personnalité unique garantit que Chat'bruti :
 
 ## 🏆 Crédits & Équipe
 
-Créé avec ❤️ et beaucoup de café pour la **Nuit de l'Info 2024**
+Créé avec ❤️ et beaucoup de café pour la **Nuit de l'Info 2025**
 
 ### L'Équipe
 - **Développement** : [Votre Nom]
@@ -151,7 +151,7 @@ Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, le modifier et e
 
 ---
 
-## 🎯 Défi Nuit de l'Info 2024
+## 🎯 Défi Nuit de l'Info 2025
 
 **Thème** : Chatbot  
 **Prix** : 1er - 600€* | 2ds - 300€* | 3èmes - 100€*  
