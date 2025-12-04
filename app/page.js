@@ -103,7 +103,7 @@ export default function HomePage() {
         {/* Header */}
         <header className="header">
           <div className="brand">
-            <Sparkles className="logo-icon" />
+            <img src="/404-logo.png" alt="Chat'bruti Logo" className="logo-img" />
             <div>
               <h1 className="title">Chat’bruti</h1>
               <p className="subtitle">L'intelligence artificielle... artificielle</p>
@@ -213,6 +213,22 @@ export default function HomePage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p className="footer-text">
+          Fait avec 🤡 pour la <strong>Nuit de l'Info 2025</strong>
+        </p>
+        <p className="footer-links">
+          <a href="https://github.com/24259-a11y/chatbruti-ammar" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          {" • "}
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsModalOpen(true); }}>
+            À propos
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

@@ -95,7 +95,19 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
 }
 
 .logo-icon {
@@ -363,4 +375,42 @@ body {
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 20px;
+  background: rgba(2, 6, 23, 0.4);
+  border-top: var(--glass-border);
+}
+
+.footer-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.footer-text strong {
+  color: var(--text-main);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-links {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.footer-links a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
 }
