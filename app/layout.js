@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body>
-        <main className="app-shell">{children}</main>
+        {children}
       </body>
     </html>
   );

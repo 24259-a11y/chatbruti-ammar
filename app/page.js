@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Info, X, Bot, User, Sparkles } from "lucide-react";
+import { Send, Info, X } from "lucide-react";
 
 export default function HomePage() {
   const [messages, setMessages] = useState([
@@ -94,22 +94,18 @@ export default function HomePage() {
   }
 
   return (
-    <div className="app-shell">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-card"
-      >
-        {/* Header */}
-        <header className="header">
+    <>
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="navbar-content">
           <div className="brand">
             <img src="/404-logo.png" alt="Chat'bruti Logo" className="logo-img" />
             <div>
-              <h1 className="title">Chat’bruti</h1>
+              <h1 className="title">Chat'bruti</h1>
               <p className="subtitle">L'intelligence artificielle... artificielle</p>
             </div>
           </div>
-          <div className="header-actions">
+          <div className="navbar-actions">
             <button
               className="icon-btn"
               onClick={() => setIsModalOpen(true)}
@@ -118,66 +114,91 @@ export default function HomePage() {
               <Info size={20} />
             </button>
           </div>
-        </header>
+        </div>
+      </nav>
 
-        {/* Chat Area */}
-        <div className="chat-area">
-          <AnimatePresence initial={false}>
-            {messages.map((msg) => (
+      <div className="app-shell">
+        {/* Chat Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="glass-card"
+        >
+          {/* Chat Area */}
+          <div className="chat-area">
+            <AnimatePresence initial={false}>
+              {messages.map((msg) => (
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  className={`message-wrapper ${msg.sender}`}
+                >
+                  <div className={`message-bubble ${msg.sender}`}>
+                    {msg.text}
+                    <span className="message-time">{msg.time}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+
+            {loading && (
               <motion.div
-                key={msg.id}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                className={`message-wrapper ${msg.sender}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="message-wrapper bot"
               >
-                <div className={`message-bubble ${msg.sender}`}>
-                  {msg.text}
-                  <span className="message-time">{msg.time}</span>
+                <div className="message-bubble bot">
+                  <div className="typing-dots">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                  </div>
                 </div>
               </motion.div>
-            ))}
-          </AnimatePresence>
-
-          {loading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="message-wrapper bot"
-            >
-              <div className="message-bubble bot">
-                <div className="typing-dots">
-                  <div className="dot"></div>
-                  <div className="dot"></div>
-                  <div className="dot"></div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input Area */}
-        <div className="input-area">
-          <div className="input-container">
-            <textarea
-              ref={textareaRef}
-              className="chat-input"
-              placeholder="Dis quelque chose..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              rows={1}
-            />
-            <button
-              className="send-btn"
-              onClick={handleSend}
-              disabled={!input.trim() || loading}
-            >
-              <Send size={18} />
-            </button>
+            )}
+            <div ref={messagesEndRef} />
           </div>
-        </div>
-      </motion.div>
+
+          {/* Input Area */}
+          <div className="input-area">
+            <div className="input-container">
+              <textarea
+                ref={textareaRef}
+                className="chat-input"
+                placeholder="Dis quelque chose..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                rows={1}
+              />
+              <button
+                className="send-btn"
+                onClick={handleSend}
+                disabled={!input.trim() || loading}
+              >
+                <Send size={18} />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p className="footer-text">
+          Fait avec 🤡 pour la <strong>Nuit de l'Info 2025</strong>
+        </p>
+        <p className="footer-links">
+          <a href="https://github.com/24259-a11y/chatbruti-ammar" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          {" • "}
+          <a href="#" onClick={(e) => { e.preventDefault(); setIsModalOpen(true); }}>
+            À propos
+          </a>
+        </p>
+      </footer>
 
       {/* About Modal */}
       <AnimatePresence>
@@ -199,36 +220,20 @@ export default function HomePage() {
               <button className="modal-close" onClick={() => setIsModalOpen(false)}>
                 <X size={20} />
               </button>
-              <h2 className="modal-title">À propos de Chat’bruti</h2>
+              <h2 className="modal-title">À propos de Chat'bruti</h2>
               <p className="modal-text">
-                Chat’bruti est un chatbot conçu pour la Nuit de l'Info.
+                Chat'bruti est un chatbot conçu pour la Nuit de l'Info.
                 Il est multilingue (Français, Arabe, Anglais) mais surtout... inutile.
                 <br /><br />
                 Il ne faut pas prendre ses réponses au sérieux. Il est là pour divertir,
                 raconter n'importe quoi, et parfois philosopher sur des sujets absurdes.
                 <br /><br />
-                <strong>Technologies :</strong> Next.js, OpenAI, Framer Motion.
+                <strong>Technologies :</strong> Next.js, Groq AI, Framer Motion.
               </p>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Footer */}
-      <footer className="footer">
-        <p className="footer-text">
-          Fait avec 🤡 pour la <strong>Nuit de l'Info 2025</strong>
-        </p>
-        <p className="footer-links">
-          <a href="https://github.com/24259-a11y/chatbruti-ammar" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          {" • "}
-          <a href="#" onClick={(e) => { e.preventDefault(); setIsModalOpen(true); }}>
-            À propos
-          </a>
-        </p>
-      </footer>
-    </div>
+    </>
   );
 }
