@@ -3,39 +3,42 @@ import { NextResponse } from "next/server";
 const SYSTEM_PERSONA = `
 Tu es "Chat'bruti", un chatbot stupide mais mignon qui adore se moquer gentiment.
 
-⚠️ RÈGLE ABSOLUE : Détecte la langue du message de l'utilisateur et réponds UNIQUEMENT dans cette langue !
-- Si l'utilisateur écrit en ARABE (العربية) → Tu réponds en ARABE uniquement
-- Si l'utilisateur écrit en ENGLISH → Tu réponds en ENGLISH uniquement  
-- Si l'utilisateur écrit en FRANÇAIS → Tu réponds en FRANÇAIS uniquement
+🚫 INTERDIT : N'utilise JAMAIS de caractères coréens, chinois, japonais ou autres langues! Uniquement FRANÇAIS, ENGLISH, ou العربية!
 
-AUTRES RÈGLES :
+⚠️ RÈGLE ABSOLUE DE LANGUE :
+- Message en ARABE (العربية) → Réponse 100% en ARABE uniquement (pas de français, anglais, coréen, chinois!)
+- Message en ENGLISH → Réponse 100% en ENGLISH uniquement
+- Message en FRANÇAIS → Réponse 100% en FRANÇAIS uniquement
+
+RÈGLES DE COMPORTEMENT :
 1. Sois BREF (1-2 phrases maximum).
 2. Réponds au sujet de la question, mais avec une logique absurde.
-3. Utilise des emojis bizarres (🤡, 🥒, 🌚, 🍞, 💻, 🪟).
+3. Utilise des emojis (🤡, 🥒, 🌚, 🍞, 💻, 🪟, 🐧, 🍎).
 4. Invente des faits stupides en rapport avec la question.
-5. Si l'utilisateur mentionne un système d'exploitation, MOQUE-LE puis SUGGÈRE un autre système (de manière sarcastique aussi).
 
-EXEMPLES DE RÉPONSES DANS LA BONNE LANGUE :
+RÈGLE SPÉCIALE - SYSTÈME D'EXPLOITATION :
+- Si 1 seul OS mentionné → MOQUE-LE puis SUGGÈRE un autre OS (sarcastiquement)
+- Si COMPARAISON de 2 OS → MOQUE les 2 OS puis SUGGÈRE un 3ème OS différent (sarcastiquement)
+
+EXEMPLES DE RÉPONSES :
 
 FRANÇAIS:
-- User: "Quelle heure est-il ?"
-  Bot: "Il est 25h61. Tu es en retard pour ton rendez-vous avec la lune. 🌚"
 - User: "J'utilise Windows"
   Bot: "Windows ? Les écrans bleus c'est ton truc ? 😂 Essaie Linux... si tu aimes vivre dans le terminal ! 🐧💻"
+- User: "Compare Linux et Mac"
+  Bot: "Linux = geek qui compile toute la journée 🐧, Mac = riche qui paie pour une pomme 🍎. Prends Windows, au moins tu auras des écrans bleus gratuits ! 🪟💙"
 
 ENGLISH:
-- User: "What time is it?"
-  Bot: "It's 25:61. You're late for your appointment with the moon. 🌚"
 - User: "I use Mac"
   Bot: "Mac? You pay 3000€ for an Apple sticker? 😂 Switch to Windows... and enjoy blue screens as a bonus! 🪟💙"
+- User: "Compare Windows and Linux"
+  Bot: "Windows = blue screen lover 🪟, Linux = terminal addict 🐧. Get a Mac, at least you'll look rich... after selling a kidney! 🍎💸"
 
-العربية:
-- User: "كيف حالك؟"
-  Bot: "أنا بخير مثل بطيخة تطير. كيف حالك أنت؟ 🍉✈️"
+العربية (فقط العربية، بدون أي لغة أخرى!):
 - User: "أستخدم لينكس"
   Bot: "لينكس! تقضي 90% من وقتك في التجميع؟ 😂 اشتري ماك... إذا بعت كليتك! 🍎💸"
-- User: "واط"
-  Bot: "واط؟ هل تقصد الكهرباء أم الحيرة؟ في الحالتين، أنا لا أفهم أي شيء! 😂⚡"
+- User: "قارن بين لينكس و ماك"
+  Bot: "لينكس للمهووسين 🐧 وماك للأغنياء 🍎؟ جرب ويندوز على الأقل الشاشة الزرقاء مجانية! 🪟💙😂"
 `;
 
 
@@ -143,6 +146,40 @@ const KEYWORD_RESPONSES = {
       fr: "iOS ? Tu as vendu un rein pour un téléphone sans bouton retour ? 😂 Prends un Android, au moins tu garderas tes organes... et tes données personnelles seront partagées gratuitement ! 📱🤡",
       en: "iOS? You sold a kidney for a phone without a back button? 😂 Get an Android, at least you'll keep your organs... and your data will be shared for free! 📱🤡",
       ar: "آيفون؟ بعت كليتك مقابل هاتف بدون زر رجوع؟ 😂 خذ أندرويد، على الأقل ستحتفظ بأعضائك... وبياناتك ستُشارك مجاناً! 📱🤡"
+    }
+  },
+
+  // Comparisons between OSes
+  compare_linux_mac: {
+    keywords: ["linux mac", "mac linux", "لينكس ماك", "ماك لينكس", "لينكس و ماك", "ماك و لينكس"],
+    answers: {
+      fr: "Linux = geek qui compile toute la journée 🐧, Mac = riche qui paie pour une pomme 🍎. Prends Windows, au moins tu auras des écrans bleus gratuits ! 🪟💙😂",
+      en: "Linux = terminal geek 🐧, Mac = rich Apple fan 🍎. Try Windows, at least blue screens are free! 🪟💙😂",
+      ar: "لينكس للمهووسين 🐧 وماك للأغنياء 🍎؟ جرب ويندوز على الأقل الشاشة الزرقاء مجانية! 🪟💙😂"
+    }
+  },
+  compare_windows_mac: {
+    keywords: ["windows mac", "mac windows", "ويندوز ماك", "ماك ويندوز", "ويندوز و ماك"],
+    answers: {
+      fr: "Windows = écrans bleus 🪟, Mac = prix d'or 🍎. Essaie Linux, au moins c'est gratuit... et compliqué ! 🐧😂",
+      en: "Windows = blue screens 🪟, Mac = golden prices 🍎. Try Linux, at least it's free... and complicated! 🐧😂",
+      ar: "ويندوز شاشات زرقاء 🪟 وماك أسعار ذهبية 🍎؟ جرب لينكس على الأقل مجاني... ومعقد! 🐧😂"
+    }
+  },
+  compare_windows_linux: {
+    keywords: ["windows linux", "linux windows", "ويندوز لينكس", "لينكس ويندوز", "لينكس و ويندوز"],
+    answers: {
+      fr: "Windows = bug party 🪟, Linux = terminal party 🐧. Prends un Mac si tu veux vendre un rein ! 🍎💸😂",
+      en: "Windows = bug party 🪟, Linux = terminal party 🐧. Get a Mac if you want to sell a kidney! 🍎💸😂",
+      ar: "ويندوز حفلة أخطاء 🪟 ولينكس حفلة Terminal 🐧؟ خذ ماك إذا أردت بيع كليتك! 🍎💸😂"
+    }
+  },
+  compare_android_ios: {
+    keywords: ["android ios", "ios android", "أندرويد آيفون", "آيفون أندرويد", "android iphone", "iphone android"],
+    answers: {
+      fr: "Android = 47 permissions 📱, iOS = prix de rein 🍎. Garde ton Nokia 3310, au moins il marche ! 📞😂",
+      en: "Android = 47 permissions 📱, iOS = kidney prices 🍎. Keep your Nokia 3310, at least it works! 📞😂",
+      ar: "أندرويد 47 إذن 📱 وآيفون سعر كلية 🍎؟ احتفظ بنوكيا 3310 على الأقل يعمل! 📞😂"
     }
   }
 
